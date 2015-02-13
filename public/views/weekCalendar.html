@@ -1,0 +1,116 @@
+<div class="week names" >
+<div id="daydiv"  class="clearfix">
+ <span class="day" style="border:solid 1px #CCC;" id ="hour">Date</span>
+ <div class="day" ng-repeat="h in hours" style="border:solid 1px #CCC;" >
+    <span  style="margin-left:-100%; background-color:white; height:50%;
+      ">{{h.t | zeroto12 }}:00</span>
+    </div>
+    </div>
+
+
+
+<div class = "clearfix" ng-repeat="day in currentWeek.days" 
+   >
+<!-- +'  '+ day.name -->
+    <div class="day today" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }"  style="height:{{(80+day.session[0].bottomMargin+
+    day.session[1].bottomMargin)+'px'}};"
+    ng-click="select(day)"><div style="width:50%;float:left; padding-top:30px;">{{day.number }}</div>
+    <div style="width:50%;float:left;">
+    <div style="margin-bottom:{{day.session[0].bottomMargin+'px'}};">AM</div>
+    <div style="margin-bottom:{{day.session[1].bottomMargin+'px'}};">PM</div></div>
+    </div>
+      <!-- ampm -->
+    <div ng-repeat="session in day.session" style="height:40px;   border-bottom:solid 1px #CCC; border-top:solid 1px #CCC; margin-bottom:{{session.bottomMargin+'px'}}" 
+    ng-class="{morning: $first, evening: $last, glow: session.show}"
+    ng-mousemove="mousemove($event, day, session)" ng-mouseleave="leave(session)">
+    <!-- available slots -->
+    <div class="day" ng-repeat="time in session.availTime" 
+     style="background-color:#3333CC; width:{{getBarWidth(time,session.areas)+'%'}};
+    margin-left:{{time.leftMargin+'%'}};  position:absolute;" >
+     </div>
+      <!-- available slots  ends-->
+
+      <!-- booked -->
+     <div  ng-repeat="booked in session.booked" style="position:absolute;
+     width:{{getBarWidth(booked,session.bookedArea)+'%'}};
+     margin-left:{{(booked.leftMargin+hourwidth)+'%'}};" >
+     <span  class="day" style=" width:100%; background-color:#009933;" ></span>
+      <div style="font-size: 0.65em; margin-left:-12px; color:black; float:left"
+       ng-show="booked.showSt">{{booked.startTime}}</div> 
+        <div style="font-size: 0.65em; margin-right:-12px; color:black;  float:right"
+        ng-show="booked.showEt"> {{booked.endTime}}</div> 
+</div>
+     <!-- booked end-->
+
+
+<!-- hover start -->
+<div style="position:absolute; margin-left:{{session.margin+'%'}};  width:{{session.barWidth+'%'}}" 
+ng-click="bookSpot(session)"  ng-show="session.showBar">
+    <span  class="day" style=" width:100%; background-color:#66CCFF;" ></span>
+    <div style="font-size: 0.65em;  margin-left:-12px; color:black; float:left;"
+          ng-show="session.showSt">{{(session.sh | zeroto12)+':'+session.sm}}</div> 
+    <div style="font-size: 0.65em; margin-right:-12px;  color:black;float:right;"
+          ng-show="session.showEt">{{(session.eh | zeroto12)+':'+session.em}}</div> 
+</div>
+<!-- hover end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- expand view start -->
+        <!-- ###################################################  -->
+      <div class="container text-center" ng-show="session.show" style="border:10px solid white; margin-top:40px;">
+      <div class="row">
+      <div class="col-lg-2">
+      <h5 style="color:black">Discussion</h5>
+        <input type="text" class="form-control" placeholder="Topic"
+         aria-describedby="basic-addon1">
+      </div>
+      <div class="col-lg-3 btn-group">
+        <h5>Type</h5>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width:150px;">
+            Skype <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a >skype</a></li>
+            <li><a >Google Hangout</a></li>
+            <li><a >Face to Face</a></li>
+          </ul>
+      </div>
+      <div class="col-lg-3">
+         <h5>Contact</h5>
+          <input type="text" class="form-control" placeholder="email">
+      </div>
+      <div class="col-lg-3">
+        <h5>Time</h5>
+        {{(session.sh | zeroto12)+':'+session.sm+' '+session.sn+' - '+(session.eh | zeroto12)+':'+session.em+' '+session.en}}
+      </div>
+      <div class="col-lg-1" style="cursor:pointer;">
+        
+        <span class="glyphicon glyphicon-remove-circle" 
+        style="font-size:20px;margin-top:15px;" ng-click="close(session)"></span> 
+         <span class="glyphicon glyphicon-ok balanced"  ng-click="confirm(session)"
+          style="font-size:15px;"></span>
+         
+      </div>
+      </div>
+      </div>
+
+       <!-- ###################################################  -->
+       <!-- expand view ends -->
+       <div style="clear:both;"></div>
+</div>
+     </div>
+</div>
+
+

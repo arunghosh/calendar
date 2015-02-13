@@ -1,0 +1,10 @@
+{
+  "name": "schedular-app-angularjs",
+  "version": "0.0.1",
+  "devDependencies": {
+    "karma": "0.12.31",
+    "karma-jasmine": "~0.2.0",
+    "karma-chrome-launcher": "~0.1.7",
+    "karma-html2js-preprocessor": "~0.1.0"
+  }
+}

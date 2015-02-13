@@ -1,0 +1,33 @@
+
+<!-- <div id="overlay"  style=" display:{{overlay}};">
+</div> -->
+
+<div  style="text-align:center; ">
+
+<div class="btn-group" role="group" >
+  <button type="button" class="btn btn-default"  ng-repeat ="period in availPeriod"
+  ng-click="setPeriod(period.p)" ng-class="{'btn-primary':isSelected(period.p)}">{{period.p*15+' min'}}</button>
+</div>
+	<h5 >{{currentTime+', '+currentZone}}</h5>
+	<div class="btn-group" role="group" style="margin-bottom:10px; margin-left:10px;">
+  <button type="button" class="btn btn-default" ng-click="navigate(-4)">prev</button>
+  <button type="button" class="btn btn-default" ng-click="navigate(4)">next</button>
+</div>
+
+
+	 <input type="text"  placeholder="Enter Country" ng-model="query" 
+	  style="width:400px; display:none;">
+	 <ul class="list-group" style="position:absolute; margin-left:11.5%; width:400px; ">
+		  <li class="list-group-item" ng-repeat="result in searchResult" 
+		  ng-click="setTimeZone(result.zoneid)"> {{result.country+' ('+result.offset+')'}}</li>
+	</ul>
+</div>
+
+
+
+<div > 
+<!-- style="padding: 2% 2% 2% 2%;" -->
+      <!-- <calendar selected="day"></calendar> -->
+      <div ng-include='template'></div>
+       <div style="clear:both;"></div>
+     </div>
